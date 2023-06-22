@@ -7,6 +7,7 @@
     let allRegisteredAmount;
     let placemarkAnalytics;
     let allCategories = [];
+    let placemarkCount = [];
     let userVsAdminAmount = {
         labels: ["Normal User","Admin"],
         datasets: [
@@ -41,8 +42,7 @@
         for (let i = 0; i < allCategories.length; i++) {
             categoryTitles[i] = allCategories[i].title;
         }
-
-        let placemarkCount = [];
+        console.log(categoryTitles);
         let categoryCounter = 0;
         for (let i = 0; i < allCategories.length; i++) {
             categoryCounter = 0;
@@ -104,8 +104,10 @@
         <Chart data={userVsAdminAmount} type="pie" />
     </div>
 </div>
+
+<h1 class="is-size-5">Placemark Analytics</h1>
 <div class="columns is-vcentered">
-    <h1 class="is-size-5">Placemark Analytics</h1>
+
     <div class="column">
         <Chart data={placemarkAnalytics} type="pie" />
     </div>
@@ -116,6 +118,7 @@
             <tr>
                 <th>Nr.</th>
                 <th>Title</th>
+                <th>Placemarks in Category</th>
             </tr>
             </thead>
             <tbody>
@@ -124,6 +127,7 @@
                     <tr>
                         <th>{i+1}</th>
                         <td>{category.title}</td>
+                        <td>{placemarkCount[i]}</td>
                     </tr>
                 {/each}
             {/if}
