@@ -5,6 +5,8 @@
 
     let currentUsers = [];
     let allRegisteredAmount;
+    let placemarkAnalytics;
+    let allCategories = [];
     let userVsAdminAmount = {
         labels: ["Normal User","Admin"],
         datasets: [
@@ -32,6 +34,33 @@
                userVsAdminAmount.datasets[0].values[1] += 1;
            }
         });
+
+        allCategories = await placemarkApiService.getAllCategories();
+        const allPlacemarks = await placemarkApiService.getAllPlacemarks();
+        let categoryTitles = [];
+        for (let i = 0; i < allCategories.length; i++) {
+            categoryTitles[i] = allCategories[i].title;
+        }
+
+        let placemarkCount = [];
+        let categoryCounter = 0;
+        for (let i = 0; i < allCategories.length; i++) {
+            categoryCounter = 0;
+            for (let j = 0; j < allPlacemarks.length; j++) {
+                if(allCategories[i]._id === allPlacemarks[j].categoryid){
+                    categoryCounter++;
+                }
+            }
+            placemarkCount[i] = categoryCounter;
+        }
+        placemarkAnalytics = {
+            labels: categoryTitles,
+            datasets: [
+                {
+                    values: placemarkCount
+                }
+            ]
+        };
 
 
     });
@@ -76,5 +105,30 @@
     </div>
 </div>
 <div class="columns is-vcentered">
+    <h1 class="is-size-5">Placemark Analytics</h1>
+    <div class="column">
+        <Chart data={placemarkAnalytics} type="pie" />
+    </div>
+
+    <div class="column">
+        <table class="table is-striped is-fullwidth">
+            <thead>
+            <tr>
+                <th>Nr.</th>
+                <th>Title</th>
+            </tr>
+            </thead>
+            <tbody>
+            {#if {allCategories}}
+                {#each allCategories as category, i}
+                    <tr>
+                        <th>{i+1}</th>
+                        <td>{category.title}</td>
+                    </tr>
+                {/each}
+            {/if}
+            </tbody>
+        </table>
+    </div>
 
 </div>
