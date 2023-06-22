@@ -3,6 +3,7 @@
     import { LeafletMap } from "../services/leaflet-map";
     import { onMount } from "svelte";
     import {placemarkApiService} from "../services/placemark-Api-Service.js";
+    import {latestPlacemark} from "../stores.ts";
 
     const mapConfig = {
         location: { lat: 49.013432, lng: 12.101624 },
@@ -30,6 +31,13 @@
             const placemarkStr = `Category: ${placemark.category.title} ${placemark.name}  ${placemark.description}`;
             map.addMarker({ lat: placemark.latitude, lng: placemark.longitude }, placemarkStr, placemark.category.title);
         }
+
+        latestPlacemark.subscribe((placemark) => {
+            if (placemark && map) {
+                addPlacemarkToMap(map, placemark);
+            }
+        });
+
     });
 </script>
 
