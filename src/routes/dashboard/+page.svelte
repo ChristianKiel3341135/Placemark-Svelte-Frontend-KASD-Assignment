@@ -12,7 +12,8 @@
 
 <div class="columns is-vcentered">
     <div class="column box has-text-centered">
-        <h1 class="title is-4">Welcome</h1>
+        <h1 class="title is-4">Welcome! Categorization implemented in the Hapi/Handlebars Version!</h1>
+        <h2>Just showing all Placemarks</h2>
         <DashboardForm />
     </div>
 </div>
