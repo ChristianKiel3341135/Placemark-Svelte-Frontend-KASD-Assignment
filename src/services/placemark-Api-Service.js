@@ -1,6 +1,6 @@
 // @ts-nocheck
 import axios from "axios";
-import {user} from "../stores";
+import {latestPlacemark, user} from "../stores";
 
 export const placemarkApiService = {
     baseUrl: "http://localhost:4000",
@@ -70,6 +70,15 @@ export const placemarkApiService = {
         }
     },
 
+    async getUserByEmail(email){
+        try {
+            const response = await axios.get(this.baseUrl + "/api/users/email/" + email);
+            return response.data;
+        } catch (error) {
+            return null;
+        }
+    },
+
     async getAllPlacemarks(){
         try {
             const response = await axios.get(this.baseUrl + "/api/placemarks");
@@ -77,6 +86,17 @@ export const placemarkApiService = {
         } catch (error) {
             return [];
         }
+    },
+
+    async createPlacemark(id, placemark,userid) {
+        try {
+            const res = await axios.post(`${this.baseUrl}/api/categories/${id}/placemarks`, placemark,userid);
+            latestPlacemark.set(res.data);
+            return res.data;
+        }catch (error){
+            return null;
+        }
+
     },
 
     async getAllCategories(){

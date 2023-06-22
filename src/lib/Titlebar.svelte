@@ -6,9 +6,7 @@
 
 <div class="box has-text-centered columns m-2">
     <div class="column">
-        <a href="/" class="column">
             <img src="/map-icon.png" width="60" alt="img" />
-        </a>
     </div>
     <div class="column">
         <div class="title is-5">{title}</div>

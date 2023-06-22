@@ -4,6 +4,7 @@
     import MainNavigator from "$lib/MainNavigator.svelte";
     import PlacemarkMap from "../../lib/PlacemarkMap.svelte";
     import {placemarkApiService} from "../../services/placemark-Api-Service";
+    import AddPlacemarkForm from "../../lib/AddPlacemarkForm.svelte";
 
     beforeUpdate(() => {
         //placemarkApiService.checkPageRefresh();
@@ -13,5 +14,16 @@
 <Header>
     <MainNavigator />
 </Header>
+<div class="columns">
+    <div class="column">
+        <PlacemarkMap />
+    </div>
 
-<PlacemarkMap />
+    <div class="column">
+        <AddPlacemarkForm/>
+    </div>
+
+</div>
+
+
+
