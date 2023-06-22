@@ -1,0 +1,80 @@
+<script>
+    import Chart from 'svelte-frappe-charts';
+    import {placemarkApiService} from "../services/placemark-Api-Service.js";
+    import {onMount} from "svelte";
+
+    let currentUsers = [];
+    let allRegisteredAmount;
+    let userVsAdminAmount = {
+        labels: ["Normal User","Admin"],
+        datasets: [
+            {
+                values: [0,0]
+            }
+        ]
+    };
+    onMount(async () => {
+        currentUsers = await placemarkApiService.getAllUsers();
+        allRegisteredAmount = {
+            labels: ["Registered Users"],
+            datasets: [
+                {
+                    values: [currentUsers.length]
+                }
+            ]
+        };
+
+        currentUsers.forEach((user) => {
+           if(!user.isAdmin){
+                userVsAdminAmount.datasets[0].values[0] += 1;
+           }
+           else{
+               userVsAdminAmount.datasets[0].values[1] += 1;
+           }
+        });
+
+
+    });
+
+</script>
+
+<h1 class="is-size-5">User Analytics</h1>
+<div class="columns is-vcentered">
+        <div class="column">
+            <Chart data={allRegisteredAmount} type="bar" />
+        </div>
+
+        <div class="column">
+            <table class="table is-striped is-fullwidth">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Nr.</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Emailadress</th>
+                </tr>
+                </thead>
+                <tbody>
+                {#if {currentUsers}}
+                    {#each currentUsers as user, i}
+                        <tr>
+                            <th><i class="fas fa-user"></i></th>
+                            <th>{i+1}</th>
+                            <td>{user.firstName}</td>
+                            <td>{user.lastName}</td>
+                            <td>{user.email}</td>
+                        </tr>
+                    {/each}
+                {/if}
+                </tbody>
+            </table>
+        </div>
+
+    <div class="column">
+        <Chart data={userVsAdminAmount} type="pie" />
+    </div>
+</div>
+<div class="columns is-vcentered">
+
+</div>
