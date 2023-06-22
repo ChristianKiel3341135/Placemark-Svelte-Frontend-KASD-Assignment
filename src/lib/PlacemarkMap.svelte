@@ -13,6 +13,11 @@
     onMount(async () => {
         const map = new LeafletMap("placemark-map", mapConfig);
         map.showZoomControl();
+        const allCategories = await placemarkApiService.getAllCategories();
+        allCategories.forEach((category) =>{
+            map.addLayerGroup(category.title);
+        });
+
         map.showLayerControl();
         const placemarks = await placemarkApiService.getAllPlacemarks();
         console.log(placemarks);
@@ -23,7 +28,7 @@
         async function addPlacemarkToMap(map, placemark) {
             placemark.category = await placemarkApiService.getCategory(placemark.categoryid);
             const placemarkStr = `Category: ${placemark.category.title} ${placemark.name}  ${placemark.description}`;
-            map.addMarker({ lat: placemark.latitude, lng: placemark.longitude }, placemarkStr);
+            map.addMarker({ lat: placemark.latitude, lng: placemark.longitude }, placemarkStr, placemark.category.title);
         }
     });
 </script>
