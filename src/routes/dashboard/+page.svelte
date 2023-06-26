@@ -2,7 +2,6 @@
     import Header from '$lib/Header.svelte';
     import DashboardForm from '$lib/DashboardForm.svelte';
     import MainNavigator from "../../lib/MainNavigator.svelte";
-    import Titlebar from "../../lib/Titlebar.svelte";
 
 </script>
 

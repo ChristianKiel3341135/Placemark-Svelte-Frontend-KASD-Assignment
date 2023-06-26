@@ -3,8 +3,8 @@ import axios from "axios";
 import {latestPlacemark, user} from "../stores";
 
 export const placemarkApiService = {
-    baseUrl: "http://localhost:4000",
-    //baseUrl: "https://placemark-christiankiel-kasd.onrender.com/",
+    //baseUrl: "http://localhost:4000",
+    baseUrl: "https://placemark-christiankiel-kasd.onrender.com/",
 
     async login(email, password) {
         try {
