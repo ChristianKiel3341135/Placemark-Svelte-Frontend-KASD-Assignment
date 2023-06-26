@@ -1,5 +1,5 @@
 <script>
-    import TitleBar from './TitleBar.svelte';
+    import TitleBar from '$lib/TitleBar.svelte';
 </script>
 
 <div class="columns is-vcentered">
