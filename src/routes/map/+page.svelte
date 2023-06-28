@@ -6,9 +6,8 @@
     import {placemarkApiService} from "../../services/placemark-Api-Service";
     import AddPlacemarkForm from "../../lib/AddPlacemarkForm.svelte";
 
-    beforeUpdate(() => {
-        //placemarkApiService.checkPageRefresh();
-    });
+    export const ssr = false;
+
 </script>
 
 <Header>
